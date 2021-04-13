@@ -2,11 +2,16 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
+ * @ApiResource(
+ *     normalizationContext={"groups"={"user:read"}}
+ * )
  * @ORM\Entity(repositoryClass=UserRepository::class)
  * @ORM\Table(name="`user`")
  */
@@ -20,6 +25,7 @@ class User implements UserInterface
     private $id;
 
     /**
+     * @Groups({"user:read"})
      * @ORM\Column(type="string", length=180, unique=true)
      */
     private $email;
@@ -36,16 +42,19 @@ class User implements UserInterface
     private $password;
 
     /**
+     * @Groups({"user:read"})
      * @ORM\Column(type="string", length=255)
      */
     private $firstname;
 
     /**
+     * @Groups({"user:read"})
      * @ORM\Column(type="string", length=255)
      */
     private $lastname;
 
     /**
+     * @Groups({"user:read"})
      * @ORM\Column(type="string", length=255)
      */
     private $phone;
